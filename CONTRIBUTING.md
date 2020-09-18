@@ -26,3 +26,16 @@ integrate the tool before pushing changes to GitHub.
 
    The hook will ensure that `pre-commit` will be run against all staged changes
    during `git commit`.
+
+## GitHub Codespaces
+
+[Codespaces](https://github.com/features/codespaces) where avalaible is a quick path to have the correct toolset for contributing in your browser!
+
+1. Fork the repository to allow for your own secrets and githooks
+2. Click the "Code" button on your fork
+3. Select "Open with Codespaces"
+4. Wait for the workspace to launch and customize on first launch
+   progress can be viewed in the post create log
+   ```bash
+      tail ~/post-create-tools.log
+   ```
