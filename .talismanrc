@@ -1,0 +1,3 @@
+fileignoreconfig:
+- filename: .github/workflows/pre-commit.yml
+  checksum: 71fea73f97b2882cc899f729b9e9c2b79cd5a199aecdb9a28794e64d4fda859e
