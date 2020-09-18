@@ -3,7 +3,7 @@ name: Feature request
 about: Suggest an idea for these modules
 title: ''
 labels: 'enhancement'
-assignees: 'memes'
+assignees: ''
 
 ---
 
