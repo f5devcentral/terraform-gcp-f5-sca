@@ -8,9 +8,9 @@ fileignoreconfig:
 - filename: README.md
   checksum: a8dd04cd97ff85ec35b420d16feaf966315a30f81d693d8ef60cc861af0f8aa7
 - filename: admin.auto.tfvars.example
-  checksum: f58a95344d6c641db4c3be52c4042d534ceb4fb0239e4f213756919c7d0f57b6
+  checksum: d684200f4ccb087d9d8240fd850a9c8b03f68db2c01964e61c6d16e37e72a316
 - filename: bigip.tf
-  checksum: 1d06dd89029bcfced6b45b7ce59567443945694686e514cf16b1345bfbe2fadd
+  checksum: 50c0a79ca25dc2245dfe7a2436d9dd1e8f81a99ff9d78690bc9045e8d461e06b
 - filename: demo/cis/container-controller/f5-cluster-deployment-src.yaml
   checksum: 6291273a5092eb3a20bea09d295a5df46c753e17e15daa6965154335014967b4
 - filename: demo/cis/setup.sh
@@ -32,10 +32,10 @@ fileignoreconfig:
 - filename: templates/nginx/startup.sh.tpl
   checksum: fc377f68e41a4d2a679c745ad44027e84a1ca933da38011594848d6b832e63d6
 - filename: templates/controller/startup.sh.tpl
-  checksum: f732a4de238b272c4e902c8628f90705ef963ce631597b086b5e2095508c0301
+  checksum: 58383f4e8978566ae815b64bd2a5e1dafad72b78318095c9cdfaaa1f8f45af51
 - filename: templates/bigip/ts.json.tpl
   checksum: 38febc4e373d1677ba72aeb5de3563ba18bde1d27f33f933aaf8f67b5c5d4964
 - filename: templates/consul/startup.sh.tpl
   checksum: 7dda21e43710af0fe156b538c4de69b936308f450183d46616e1d55b2ea3fa3b
 - filename: templates/bigip/startup.sh.tpl
-  checksum: 37479158a2467f6c180e18ce3ffc54e5dd55431bef8451aa6253308ff4f75eb9
+  checksum: b7ddd0904a5cd10cb5b79fe4a955e3c2721227fe36aeeafebb45cddf04ec7f18

@@ -19,18 +19,18 @@ dbPass             = "pleaseusevault123!"
 dbUser             = "mydbuser"
 # bigip
 ## payg
-uname          = "zadmin"
-usecret        = "my-demo-secret"
-dnsSuffix      = "c.<my-project>.internal"
-serviceAccount = "myaccount@<myproject>.iam.gserviceaccount.com"
-privateKeyId   = "abcdcba123321"
-ksecret        = "svc-acct-secret"
-license1       = ""
-license2       = ""
+bigipUsername            = "zadmin"
+bigipSecret              = "my-demo-secret"
+dnsSuffix                = "c.<my-project>.internal"
+serviceAccount           = "myaccount@<myproject>.iam.gserviceaccount.com"
+privateKeyId             = "abcdcba123321"
+serviceAccountSecretName = "svc-acct-secret"
+license1                 = ""
+license2                 = ""
 ## BYOL key
 #license1       = "my-key"
 #license2       = "my-key"
-# image_name = "projects/f5-7626-networks-public/global/images/f5-bigip-15-1-0-4-0-0-6-byol-all-modules-2boot-loc-00618231635"
+# bigipImageName = "projects/f5-7626-networks-public/global/images/f5-bigip-15-1-0-4-0-0-6-byol-all-modules-2boot-loc-00618231635"
 # big-iq license pool
 ## must be an IP
 #bigIqHost     = "192.168.2.1"

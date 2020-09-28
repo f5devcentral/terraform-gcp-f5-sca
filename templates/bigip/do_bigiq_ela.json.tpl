@@ -31,7 +31,7 @@
             "class": "DNS",
             "nameServers": [
                 "169.254.169.254",
-                "${dns_server}",
+                "${dnsServer}",
                 "2001:4860:4860::8844"
             ],
             "search": [
@@ -43,7 +43,7 @@
         "myNtp": {
             "class": "NTP",
             "servers": [
-                "${ntp_server}",
+                "${ntpServer}",
                 "1.pool.ntp.org",
                 "2.pool.ntp.org"
             ],
