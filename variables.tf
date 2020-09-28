@@ -81,7 +81,7 @@ variable dbUser {
 # Google Environment
 variable serviceAccount {}
 variable privateKeyId {}
-variable ksecret {}
+variable serviceAccountSecretName {}
 
 # NETWORK
 variable extVpc { default = "terraform-network-ext-example" }
@@ -101,22 +101,22 @@ variable customImage { default = "" }
 variable customUserData { default = "" }
 
 # BIGIP Setup
-variable uname {}
-variable usecret {}
+variable bigipUsername {}
+variable bigipSecret {}
 variable license1 { default = "" }
 variable license2 { default = "" }
 variable gceSshPublicKey {}
-variable host1_name { default = "f5vm01" }
-variable host2_name { default = "f5vm02" }
-variable dns_server { default = "8.8.8.8" }
+variable bigipHost1Name { default = "f5vm01" }
+variable bigipHost2Name { default = "f5vm02" }
+variable dnsServer { default = "8.8.8.8" }
 variable dnsSuffix {}
-variable ntp_server { default = "0.us.pool.ntp.org" }
+variable ntpServer { default = "0.us.pool.ntp.org" }
 variable timezone { default = "UTC" }
-variable DO_URL { default = "https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm" }
-variable AS3_URL { default = "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm" }
-variable TS_URL { default = "https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm" }
-variable CF_URL { default = "https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm" }
-variable onboard_log { default = "/var/log/cloud/onboard.log" }
+variable doUrl { default = "https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm" }
+variable as3Url { default = "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm" }
+variable tsUrl { default = "https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm" }
+variable cfUrl { default = "https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm" }
+variable bigipOnboardLog { default = "/var/log/cloud/onboard.log" }
 
 # BIGIQ License Manager Setup
 variable bigIqHost { default = "" }
@@ -136,4 +136,4 @@ variable owner { default = "f5owner" }
 variable group { default = "f5group" }
 variable costcenter { default = "f5costcenter" }
 variable application { default = "f5app" }
-variable f5_cloud_failover_label { default = "mydeployment" } #Cloud Failover Tag
+variable bigipCloudFailoverLabel { default = "mydeployment" } #Cloud Failover Tag

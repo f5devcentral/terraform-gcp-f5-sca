@@ -53,7 +53,7 @@ update:
     - controllerBucket
     - controllerLicense
   - bigip
-    - usecret
+    - bigipSecret
     - dnsSuffix
     - serviceAccount
 
@@ -86,15 +86,12 @@ Outline how the user can use your project and the various features the project o
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| AS3\_URL | n/a | `string` | `"https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm"` | no |
-| CF\_URL | n/a | `string` | `"https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm"` | no |
-| DO\_URL | n/a | `string` | `"https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm"` | no |
-| TS\_URL | n/a | `string` | `"https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm"` | no |
 | adminAccount | admin account | `any` | n/a | yes |
 | adminPassword | admin password | `any` | n/a | yes |
 | adminSourceAddress | admin src address in cidr | `any` | n/a | yes |
 | alias\_ip\_range | n/a | `string` | `"10.0.30.100/32"` | no |
 | application | n/a | `string` | `"f5app"` | no |
+| as3Url | n/a | `string` | `"https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm"` | no |
 | bigIqHost | BIGIQ License Manager Setup | `string` | `""` | no |
 | bigIqHypervisor | n/a | `string` | `"gce"` | no |
 | bigIqLicensePool | n/a | `string` | `""` | no |
@@ -104,7 +101,14 @@ Outline how the user can use your project and the various features the project o
 | bigIqSkuKeyword2 | n/a | `string` | `""` | no |
 | bigIqUnitOfMeasure | n/a | `string` | `""` | no |
 | bigIqUsername | n/a | `string` | `""` | no |
+| bigipCloudFailoverLabel | n/a | `string` | `"mydeployment"` | no |
+| bigipHost1Name | n/a | `string` | `"f5vm01"` | no |
+| bigipHost2Name | n/a | `string` | `"f5vm02"` | no |
 | bigipMachineType | BIGIP Image | `string` | `"n1-standard-8"` | no |
+| bigipOnboardLog | n/a | `string` | `"/var/log/cloud/onboard.log"` | no |
+| bigipSecret | n/a | `any` | n/a | yes |
+| bigipUsername | BIGIP Setup | `any` | n/a | yes |
+| cfUrl | n/a | `string` | `"https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm"` | no |
 | controllerAccount | name of controller admin account | `string` | `"admin@nginx-gcp.internal"` | no |
 | controllerBucket | name of controller installer bucket | `string` | `"none"` | no |
 | controllerLicense | license for controller | `string` | `"none"` | no |
@@ -115,24 +119,21 @@ Outline how the user can use your project and the various features the project o
 | customUserData | n/a | `string` | `""` | no |
 | dbPass | pass of controller admin account | `string` | `"naaspassword"` | no |
 | dbUser | pass of controller admin account | `string` | `"naas"` | no |
+| dnsServer | n/a | `string` | `"8.8.8.8"` | no |
 | dnsSuffix | n/a | `any` | n/a | yes |
-| dns\_server | n/a | `string` | `"8.8.8.8"` | no |
+| doUrl | n/a | `string` | `"https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm"` | no |
 | environment | n/a | `string` | `"f5env"` | no |
 | extSubnet | n/a | `string` | `"ext-sub-example"` | no |
 | extVpc | NETWORK | `string` | `"terraform-network-ext-example"` | no |
-| f5\_cloud\_failover\_label | n/a | `string` | `"mydeployment"` | no |
 | gceSshPublicKey | n/a | `any` | n/a | yes |
 | gcpProjectId | gcp project id | `any` | n/a | yes |
 | gcpRegion | region where gke is deployed | `any` | n/a | yes |
 | gcpZone | zone where gke is deployed | `any` | n/a | yes |
 | gkeVersion | gke https://cloud.google.com/kubernetes-engine/docs/release-notes-regular https://cloud.google.com/kubernetes-engine/versioning-and-upgrades gcloud container get-server-config --region us-east1 | `string` | `"1.16.13-gke.1"` | no |
 | group | n/a | `string` | `"f5group"` | no |
-| host1\_name | n/a | `string` | `"f5vm01"` | no |
-| host2\_name | n/a | `string` | `"f5vm02"` | no |
 | image\_name | gcloud compute images list --project f5-7626-networks-public --filter name:payg | `string` | `"projects/f5-7626-networks-public/global/images/f5-bigip-15-1-0-4-0-0-6-payg-best-1gbps-200618231635"` | no |
 | intSubnet | n/a | `string` | `"int-sub-example"` | no |
 | intVpc | n/a | `string` | `"terraform-network-int-example"` | no |
-| ksecret | n/a | `any` | n/a | yes |
 | license1 | n/a | `string` | `""` | no |
 | license2 | n/a | `string` | `""` | no |
 | managed\_route1 | n/a | `string` | `"192.0.2.0/24"` | no |
@@ -140,17 +141,16 @@ Outline how the user can use your project and the various features the project o
 | mgmtVpc | n/a | `string` | `"terraform-network-mgmt-example"` | no |
 | nginxCert | cert for nginxplus | `any` | n/a | yes |
 | nginxKey | key for nginxplus | `any` | n/a | yes |
-| ntp\_server | n/a | `string` | `"0.us.pool.ntp.org"` | no |
-| onboard\_log | n/a | `string` | `"/var/log/cloud/onboard.log"` | no |
+| ntpServer | n/a | `string` | `"0.us.pool.ntp.org"` | no |
 | owner | n/a | `string` | `"f5owner"` | no |
 | podCidr | k8s pod cidr | `string` | `"10.56.0.0/14"` | no |
 | prefix | prefix for resources | `any` | n/a | yes |
 | privateKeyId | n/a | `any` | n/a | yes |
 | purpose | TAGS | `string` | `"public"` | no |
 | serviceAccount | Google Environment | `any` | n/a | yes |
+| serviceAccountSecretName | n/a | `any` | n/a | yes |
 | timezone | n/a | `string` | `"UTC"` | no |
-| uname | BIGIP Setup | `any` | n/a | yes |
-| usecret | n/a | `any` | n/a | yes |
+| tsUrl | n/a | `string` | `"https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm"` | no |
 
 ## Outputs
 

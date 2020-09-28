@@ -6,7 +6,7 @@ source /usr/lib/bigstart/bigip-ready-functions
 mkdir -p /config/cloud
 mkdir -p /var/log/cloud
 
-LOG_FILE=${onboard_log}
+LOG_FILE=${bigipOnboardLog}
 
 # If file exists, exit as we only want to run once
 if [ ! -e $LOG_FILE ]; then
@@ -189,8 +189,8 @@ function wait_for_ready {
 
 # Variables
 projectId='${gcp_project_id}'
-usecret='${usecret}'
-ksecret='${ksecret}'
+bigipSecret='${bigipSecret}'
+serviceAccountSecretName='${serviceAccountSecretName}'
 bigIqSecret='${bigIqSecret}'
 mgmtGuiPort="443"
 
@@ -235,7 +235,7 @@ date
 waitNetwork
 echo "Retrieving BIG-IP password from Metadata secret"
 svcacct_token=$(curl -s -f --retry 20 "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token" -H "Metadata-Flavor: Google" | jq -r ".access_token")
-#passwd=$(curl -s -f --retry 20 "https://secretmanager.googleapis.com/v1/projects/$projectId/secrets/$usecret/versions/latest:access" -H "Authorization: Bearer $svcacct_token" | jq -r ".payload.data" | base64 --decode)
+#passwd=$(curl -s -f --retry 20 "https://secretmanager.googleapis.com/v1/projects/$projectId/secrets/$bigipSecret/versions/latest:access" -H "Authorization: Bearer $svcacct_token" | jq -r ".payload.data" | base64 --decode)
 # secret
 secret=$(curl -s -f --retry 20 "https://secretmanager.googleapis.com/v1/projects/$projectId/secrets/bigip-secret/versions/latest:access" -H "Authorization: Bearer $svcacct_token" | jq -r ".payload.data" | base64 --decode)
 passwd=$(echo $secret  | jq -r .pass)
@@ -319,7 +319,7 @@ fi
 # file_loc="/config/cloud/ts.json"
 # echo "Submitting TS declaration"
 # echo "Retrieving private key from Metadata secret for GCP Cloud Monitoring"
-# privateKey=$(curl -s -f --retry 20 "https://secretmanager.googleapis.com/v1/projects/$projectId/secrets/$ksecret/versions/1:access" -H "Authorization: Bearer $svcacct_token" | jq -r ".payload.data" )
+# privateKey=$(curl -s -f --retry 20 "https://secretmanager.googleapis.com/v1/projects/$projectId/secrets/$serviceAccountSecretName/versions/1:access" -H "Authorization: Bearer $svcacct_token" | jq -r ".payload.data" )
 # sed -i "s@\$${privateKey}@$privateKey@g" $file_loc
 # response_code=$(/usr/bin/curl -sku admin:$passwd -w "%%{http_code}" -X POST -H "Content-Type: application/json" -H "Expect:" https://localhost:$${mgmtGuiPort}/mgmt/shared/telemetry/declare -d @$file_loc -o /dev/null)
 # if [[ $response_code == *200 || $response_code == *502 ]]; then
@@ -347,16 +347,16 @@ EOF
 
 # Variables
 projectId='${gcp_project_id}'
-usecret='${usecret}'
-admin_username='${uname}'
-DO_URL='${DO_URL}'
-DO_FN=$(basename "$DO_URL")
-AS3_URL='${AS3_URL}'
-AS3_FN=$(basename "$AS3_URL")
-TS_URL='${TS_URL}'
-TS_FN=$(basename "$TS_URL")
-CF_URL='${CF_URL}'
-CF_FN=$(basename "$CF_URL")
+bigipSecret='${bigipSecret}'
+admin_username='${bigipUsername}'
+doUrl='${doUrl}'
+DO_FN=$(basename "$doUrl")
+as3Url='${as3Url}'
+AS3_FN=$(basename "$as3Url")
+tsUrl='${tsUrl}'
+TS_FN=$(basename "$tsUrl")
+cfUrl='${cfUrl}'
+CF_FN=$(basename "$cfUrl")
 rpmFilePath="/var/config/rest/downloads"
 
 ###################
@@ -469,10 +469,10 @@ date
 mkdir -p $rpmFilePath
 
 echo "Downloading toolchain RPMs"
-curl -L -s -f --retry 20 -o $rpmFilePath/$TS_FN $TS_URL
-curl -L -s -f --retry 20 -o $rpmFilePath/$DO_FN $DO_URL
-curl -L -s -f --retry 20 -o $rpmFilePath/$AS3_FN $AS3_URL
-curl -L -s -f --retry 20 -o $rpmFilePath/$CF_FN $CF_URL
+curl -L -s -f --retry 20 -o $rpmFilePath/$TS_FN $tsUrl
+curl -L -s -f --retry 20 -o $rpmFilePath/$DO_FN $doUrl
+curl -L -s -f --retry 20 -o $rpmFilePath/$AS3_FN $as3Url
+curl -L -s -f --retry 20 -o $rpmFilePath/$CF_FN $cfUrl
 sleep 10
 
 echo "Installing TS Pkg"

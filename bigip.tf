@@ -14,12 +14,12 @@ resource "google_compute_forwarding_rule" "vip1" {
 }
 
 resource "google_compute_target_instance" "f5vm01" {
-  name     = "${var.prefix}-${var.host1_name}-ti"
+  name     = "${var.prefix}-${var.bigipHost1Name}-ti"
   instance = google_compute_instance.f5vm01.id
 }
 
 resource "google_compute_target_instance" "f5vm02" {
-  name     = "${var.prefix}-${var.host2_name}-ti"
+  name     = "${var.prefix}-${var.bigipHost2Name}-ti"
   instance = google_compute_instance.f5vm02.id
 }
 # bucket
@@ -32,7 +32,7 @@ resource google_storage_bucket bigip-ha {
     not_found_page   = "404.html"
   }
   labels = {
-    f5_cloud_failover_label = var.f5_cloud_failover_label
+    f5_cloud_failover_label = var.bigipCloudFailoverLabel
   }
   force_destroy = true
 }
@@ -41,48 +41,48 @@ resource google_storage_bucket bigip-ha {
 # Setup Onboarding scripts
 locals {
   vm01_onboard = templatefile("${path.module}/templates/bigip/startup.sh.tpl", {
-    uname          = var.uname
-    usecret        = var.usecret
-    ksecret        = var.ksecret
-    bigIqSecret    = var.bigIqSecret != "" ? var.bigIqSecret : ""
-    gcp_project_id = var.gcpProjectId
-    DO_URL         = var.DO_URL
-    AS3_URL        = var.AS3_URL
-    TS_URL         = var.TS_URL
-    CF_URL         = var.CF_URL
-    onboard_log    = var.onboard_log
-    DO_Document    = local.vm01_do_json
-    AS3_Document   = ""
-    TS_Document    = local.ts_json
-    CFE_Document   = local.vm01_cfe_json
-    prefix         = var.prefix
+    bigipUsername            = var.bigipUsername
+    bigipSecret              = var.bigipSecret
+    serviceAccountSecretName = var.serviceAccountSecretName
+    bigIqSecret              = var.bigIqSecret != "" ? var.bigIqSecret : ""
+    gcp_project_id           = var.gcpProjectId
+    doUrl                    = var.doUrl
+    as3Url                   = var.as3Url
+    tsUrl                    = var.tsUrl
+    cfUrl                    = var.cfUrl
+    bigipOnboardLog          = var.bigipOnboardLog
+    DO_Document              = local.vm01_do_json
+    AS3_Document             = ""
+    TS_Document              = local.ts_json
+    CFE_Document             = local.vm01_cfe_json
+    prefix                   = var.prefix
   })
   vm02_onboard = templatefile("${path.module}/templates/bigip/startup.sh.tpl", {
-    uname          = var.uname
-    usecret        = var.usecret
-    ksecret        = var.ksecret
-    bigIqSecret    = var.bigIqSecret != "" ? var.bigIqSecret : ""
-    gcp_project_id = var.gcpProjectId
-    DO_URL         = var.DO_URL
-    AS3_URL        = var.AS3_URL
-    TS_URL         = var.TS_URL
-    CF_URL         = var.CF_URL
-    onboard_log    = var.onboard_log
-    DO_Document    = local.vm02_do_json
-    AS3_Document   = local.as3_json
-    TS_Document    = local.ts_json
-    CFE_Document   = local.vm02_cfe_json
-    prefix         = var.prefix
+    bigipUsername            = var.bigipUsername
+    bigipSecret              = var.bigipSecret
+    serviceAccountSecretName = var.serviceAccountSecretName
+    bigIqSecret              = var.bigIqSecret != "" ? var.bigIqSecret : ""
+    gcp_project_id           = var.gcpProjectId
+    doUrl                    = var.doUrl
+    as3Url                   = var.as3Url
+    tsUrl                    = var.tsUrl
+    cfUrl                    = var.cfUrl
+    bigipOnboardLog          = var.bigipOnboardLog
+    DO_Document              = local.vm02_do_json
+    AS3_Document             = local.as3_json
+    TS_Document              = local.ts_json
+    CFE_Document             = local.vm02_cfe_json
+    prefix                   = var.prefix
   })
   vm01_do_json = templatefile("${"${"${path.module}/templates/bigip/do"}${var.license1 != "" ? "_byol" : "${var.bigIqLicensePool != "" ? "_bigiq" : ""}"}"}${var.bigIqUnitOfMeasure != "" ? "_ela" : ""}.json.tpl", {
     regKey             = var.license1
-    admin_username     = var.uname
-    host1              = "${var.prefix}-${var.host1_name}"
-    host2              = "${var.prefix}-${var.host2_name}"
-    remote_host        = "${var.prefix}-${var.host2_name}"
-    dns_server         = var.dns_server
+    admin_username     = var.bigipUsername
+    host1              = "${var.prefix}-${var.bigipHost1Name}"
+    host2              = "${var.prefix}-${var.bigipHost2Name}"
+    remote_host        = "${var.prefix}-${var.bigipHost2Name}"
+    dnsServer          = var.dnsServer
     dnsSuffix          = var.dnsSuffix
-    ntp_server         = var.ntp_server
+    ntpServer          = var.ntpServer
     timezone           = var.timezone
     bigIqLicenseType   = var.bigIqLicenseType
     bigIqHost          = var.bigIqHost
@@ -95,13 +95,13 @@ locals {
   })
   vm02_do_json = templatefile("${"${"${path.module}/templates/bigip/do"}${var.license2 != "" ? "_byol" : "${var.bigIqLicensePool != "" ? "_bigiq" : ""}"}"}${var.bigIqUnitOfMeasure != "" ? "_ela" : ""}.json.tpl", {
     regKey             = var.license2
-    admin_username     = var.uname
-    host1              = "${var.prefix}-${var.host1_name}"
-    host2              = "${var.prefix}-${var.host2_name}"
+    admin_username     = var.bigipUsername
+    host1              = "${var.prefix}-${var.bigipHost1Name}"
+    host2              = "${var.prefix}-${var.bigipHost2Name}"
     remote_host        = google_compute_instance.f5vm01.network_interface.1.network_ip
-    dns_server         = var.dns_server
+    dnsServer          = var.dnsServer
     dnsSuffix          = var.dnsSuffix
-    ntp_server         = var.ntp_server
+    ntpServer          = var.ntpServer
     timezone           = var.timezone
     bigIqLicenseType   = var.bigIqLicenseType
     bigIqHost          = var.bigIqHost
@@ -126,12 +126,12 @@ locals {
     privateKeyId   = var.privateKeyId
   })
   vm01_cfe_json = templatefile("${path.module}/templates/bigip/cfe.json.tpl", {
-    f5_cloud_failover_label = var.f5_cloud_failover_label
+    bigipCloudFailoverLabel = var.bigipCloudFailoverLabel
     managed_route1          = var.managed_route1
     remote_selfip           = ""
   })
   vm02_cfe_json = templatefile("${path.module}/templates/bigip/cfe.json.tpl", {
-    f5_cloud_failover_label = var.f5_cloud_failover_label
+    bigipCloudFailoverLabel = var.bigipCloudFailoverLabel
     managed_route1          = var.managed_route1
     remote_selfip           = google_compute_instance.f5vm01.network_interface.0.network_ip
   })
@@ -139,13 +139,13 @@ locals {
 # Create F5 BIG-IP VMs
 resource google_compute_instance f5vm01 {
   depends_on     = [google_container_cluster.primary, google_compute_subnetwork.vpc_network_mgmt_sub, google_compute_subnetwork.vpc_network_int_sub, google_compute_subnetwork.vpc_network_ext_sub]
-  name           = "${var.prefix}-${var.host1_name}"
+  name           = "${var.prefix}-${var.bigipHost1Name}"
   machine_type   = var.bigipMachineType
   zone           = "${var.gcpRegion}-b"
   can_ip_forward = true
 
   labels = {
-    f5_cloud_failover_label = var.f5_cloud_failover_label
+    f5_cloud_failover_label = var.bigipCloudFailoverLabel
   }
 
   tags = ["appfw-${var.prefix}", "mgmtfw-${var.prefix}"]
@@ -181,7 +181,7 @@ resource google_compute_instance f5vm01 {
   }
 
   metadata = {
-    ssh-keys               = "${var.uname}:${var.gceSshPublicKey}"
+    ssh-keys               = "${var.bigipUsername}:${var.gceSshPublicKey}"
     block-project-ssh-keys = true
     startup-script         = var.customImage != "" ? var.customUserData : local.vm01_onboard
   }
@@ -194,13 +194,13 @@ resource google_compute_instance f5vm01 {
 
 resource google_compute_instance f5vm02 {
   depends_on     = [google_container_cluster.primary, google_compute_subnetwork.vpc_network_mgmt_sub, google_compute_subnetwork.vpc_network_int_sub, google_compute_subnetwork.vpc_network_ext_sub]
-  name           = "${var.prefix}-${var.host2_name}"
+  name           = "${var.prefix}-${var.bigipHost2Name}"
   machine_type   = var.bigipMachineType
   zone           = "${var.gcpRegion}-b"
   can_ip_forward = true
 
   labels = {
-    f5_cloud_failover_label = var.f5_cloud_failover_label
+    f5_cloud_failover_label = var.bigipCloudFailoverLabel
   }
 
   tags = ["appfw-${var.prefix}", "mgmtfw-${var.prefix}"]
@@ -239,7 +239,7 @@ resource google_compute_instance f5vm02 {
   }
 
   metadata = {
-    ssh-keys               = "${var.uname}:${var.gceSshPublicKey}"
+    ssh-keys               = "${var.bigipUsername}:${var.gceSshPublicKey}"
     block-project-ssh-keys = true
     startup-script         = var.customImage != "" ? var.customUserData : local.vm02_onboard
   }
