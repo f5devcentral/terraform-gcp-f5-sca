@@ -89,68 +89,68 @@ Outline how the user can use your project and the various features the project o
 | adminAccount | admin account | `any` | n/a | yes |
 | adminPassword | admin password | `any` | n/a | yes |
 | adminSourceAddress | admin src address in cidr | `any` | n/a | yes |
-| alias\_ip\_range | n/a | `string` | `"10.0.30.100/32"` | no |
-| application | n/a | `string` | `"f5app"` | no |
-| as3Url | n/a | `string` | `"https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm"` | no |
-| bigIqHost | BIGIQ License Manager Setup | `string` | `""` | no |
-| bigIqHypervisor | n/a | `string` | `"gce"` | no |
-| bigIqLicensePool | n/a | `string` | `""` | no |
-| bigIqLicenseType | n/a | `string` | `""` | no |
-| bigIqSecret | n/a | `string` | `""` | no |
-| bigIqSkuKeyword1 | n/a | `string` | `""` | no |
-| bigIqSkuKeyword2 | n/a | `string` | `""` | no |
-| bigIqUnitOfMeasure | n/a | `string` | `""` | no |
-| bigIqUsername | n/a | `string` | `""` | no |
-| bigipCloudFailoverLabel | n/a | `string` | `"mydeployment"` | no |
-| bigipHost1Name | n/a | `string` | `"f5vm01"` | no |
-| bigipHost2Name | n/a | `string` | `"f5vm02"` | no |
-| bigipMachineType | BIGIP Image | `string` | `"n1-standard-8"` | no |
-| bigipOnboardLog | n/a | `string` | `"/var/log/cloud/onboard.log"` | no |
-| bigipSecret | n/a | `any` | n/a | yes |
-| bigipUsername | BIGIP Setup | `any` | n/a | yes |
-| cfUrl | n/a | `string` | `"https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm"` | no |
+| aliasIpRange | alias/secondary IP subnet range | `string` | `"10.0.30.100/32"` | no |
+| application | application tag for resources | `string` | `"f5app"` | no |
+| as3Url | path to application services 3 rpm | `string` | `"https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm"` | no |
+| bigIqHost | ip address of bigiq license manager | `string` | `""` | no |
+| bigIqHypervisor | hypervisor type when sending request to license manager | `string` | `"gce"` | no |
+| bigIqLicensePool | name of bigiq license pool | `string` | `""` | no |
+| bigIqLicenseType | type of bigiq license when using a license manager | `string` | `""` | no |
+| bigIqSecret | name of google secrets manager secret with bigiq password | `string` | `""` | no |
+| bigIqSkuKeyword1 | sku type name for bigiq license pool | `string` | `""` | no |
+| bigIqSkuKeyword2 | addtional sku type name for bigiq license pool | `string` | `""` | no |
+| bigIqUnitOfMeasure | unit of measure for bigiq license pool ( hourly\|monthly\|yearly) | `string` | `""` | no |
+| bigIqUsername | user name for bigiq license manager | `string` | `""` | no |
+| bigipCloudFailoverLabel | tag for resources managed by cloud failover extension | `string` | `"mydeployment"` | no |
+| bigipCustomImageName | path to custom gce bigip image | `string` | `""` | no |
+| bigipHost1Name | hostname of first bigip device | `string` | `"f5vm01"` | no |
+| bigipHost2Name | hostname of second bigip device | `string` | `"f5vm02"` | no |
+| bigipImageName | default gce bigip image name | `string` | `"projects/f5-7626-networks-public/global/images/f5-bigip-15-1-0-4-0-0-6-payg-best-1gbps-200618231635"` | no |
+| bigipMachineType | bigip gce instance size | `string` | `"n1-standard-8"` | no |
+| bigipOnboardLog | path to bigip onboarding logs | `string` | `"/var/log/cloud/onboard.log"` | no |
+| bigipSecret | name of google secrets manager secret where bigip credentials are stored | `any` | n/a | yes |
+| bigipUsername | adminstrative account for bigip access name | `any` | n/a | yes |
+| cfUrl | path to cloud failover rpm | `string` | `"https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm"` | no |
 | controllerAccount | name of controller admin account | `string` | `"admin@nginx-gcp.internal"` | no |
 | controllerBucket | name of controller installer bucket | `string` | `"none"` | no |
 | controllerLicense | license for controller | `string` | `"none"` | no |
 | controllerPassword | pass of controller admin account | `string` | `"admin123!"` | no |
 | controllerVersion | (optional) Version of controller to install | `string` | `"3.9.0"` | no |
-| costcenter | n/a | `string` | `"f5costcenter"` | no |
-| customImage | n/a | `string` | `""` | no |
-| customUserData | n/a | `string` | `""` | no |
+| costcenter | tag for resources | `string` | `"f5costcenter"` | no |
+| customUserData | body of custom bigip userdata | `string` | `""` | no |
 | dbPass | pass of controller admin account | `string` | `"naaspassword"` | no |
 | dbUser | pass of controller admin account | `string` | `"naas"` | no |
-| dnsServer | n/a | `string` | `"8.8.8.8"` | no |
-| dnsSuffix | n/a | `any` | n/a | yes |
-| doUrl | n/a | `string` | `"https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm"` | no |
-| environment | n/a | `string` | `"f5env"` | no |
-| extSubnet | n/a | `string` | `"ext-sub-example"` | no |
-| extVpc | NETWORK | `string` | `"terraform-network-ext-example"` | no |
-| gceSshPublicKey | n/a | `any` | n/a | yes |
+| dnsServer | address of addtionale dns server for bigip devices | `string` | `"8.8.8.8"` | no |
+| dnsSuffix | dns suffix for bigip devices often your .c.yourproject | `any` | n/a | yes |
+| doUrl | path to declarative onboarding rpm | `string` | `"https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm"` | no |
+| environment | tag for resources ex. dev/staging/prod | `string` | `"f5env"` | no |
+| extSubnet | external vpc subnet range name | `string` | `"ext-sub-example"` | no |
+| extVpc | external vpc network | `string` | `"terraform-network-ext-example"` | no |
+| gceSshPublicKey | body of bigip ssh public key used to access instances | `any` | n/a | yes |
 | gcpProjectId | gcp project id | `any` | n/a | yes |
 | gcpRegion | region where gke is deployed | `any` | n/a | yes |
 | gcpZone | zone where gke is deployed | `any` | n/a | yes |
-| gkeVersion | gke https://cloud.google.com/kubernetes-engine/docs/release-notes-regular https://cloud.google.com/kubernetes-engine/versioning-and-upgrades gcloud container get-server-config --region us-east1 | `string` | `"1.16.13-gke.1"` | no |
-| group | n/a | `string` | `"f5group"` | no |
-| image\_name | gcloud compute images list --project f5-7626-networks-public --filter name:payg | `string` | `"projects/f5-7626-networks-public/global/images/f5-bigip-15-1-0-4-0-0-6-payg-best-1gbps-200618231635"` | no |
-| intSubnet | n/a | `string` | `"int-sub-example"` | no |
-| intVpc | n/a | `string` | `"terraform-network-int-example"` | no |
-| license1 | n/a | `string` | `""` | no |
-| license2 | n/a | `string` | `""` | no |
-| managed\_route1 | n/a | `string` | `"192.0.2.0/24"` | no |
-| mgmtSubnet | n/a | `string` | `"mgmt-sub-example"` | no |
-| mgmtVpc | n/a | `string` | `"terraform-network-mgmt-example"` | no |
+| gkeVersion | GKE release version | `string` | `"1.16.13-gke.1"` | no |
+| group | tag for resources | `string` | `"f5group"` | no |
+| intSubnet | internal vpc subnet range name | `string` | `"int-sub-example"` | no |
+| intVpc | internal vpc network | `string` | `"terraform-network-int-example"` | no |
+| license1 | body of bigip license key when using BYOL | `string` | `""` | no |
+| license2 | body of bigip license key when using BYOL | `string` | `""` | no |
+| managedRoute1 | managed route cidr for cloud failover extension | `string` | `"192.0.2.0/24"` | no |
+| mgmtSubnet | management vpc subnet range name | `string` | `"mgmt-sub-example"` | no |
+| mgmtVpc | device management vpc network | `string` | `"terraform-network-mgmt-example"` | no |
 | nginxCert | cert for nginxplus | `any` | n/a | yes |
 | nginxKey | key for nginxplus | `any` | n/a | yes |
-| ntpServer | n/a | `string` | `"0.us.pool.ntp.org"` | no |
-| owner | n/a | `string` | `"f5owner"` | no |
+| ntpServer | address of  bigip reachable ntp servers | `string` | `"0.us.pool.ntp.org"` | no |
+| owner | tag for resources | `string` | `"f5owner"` | no |
 | podCidr | k8s pod cidr | `string` | `"10.56.0.0/14"` | no |
 | prefix | prefix for resources | `any` | n/a | yes |
-| privateKeyId | n/a | `any` | n/a | yes |
-| purpose | TAGS | `string` | `"public"` | no |
-| serviceAccount | Google Environment | `any` | n/a | yes |
-| serviceAccountSecretName | n/a | `any` | n/a | yes |
-| timezone | n/a | `string` | `"UTC"` | no |
-| tsUrl | n/a | `string` | `"https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm"` | no |
+| privateKeyId | name of existing private key | `any` | n/a | yes |
+| purpose | tag for resources | `string` | `"public"` | no |
+| serviceAccount | machine service account with access to compute api | `any` | n/a | yes |
+| serviceAccountSecretName | secret name accessible by service account | `any` | n/a | yes |
+| timezone | default timezome for bigip devices | `string` | `"UTC"` | no |
+| tsUrl | path to telemetry streaming rpm | `string` | `"https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm"` | no |
 
 ## Outputs
 

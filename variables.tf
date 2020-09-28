@@ -26,7 +26,8 @@ variable gcpProjectId {
 #https://cloud.google.com/kubernetes-engine/versioning-and-upgrades
 #gcloud container get-server-config --region us-east1
 variable gkeVersion {
-  default = "1.16.13-gke.1"
+  description = "GKE release version"
+  default     = "1.16.13-gke.1"
 }
 
 variable podCidr {
@@ -79,61 +80,195 @@ variable dbUser {
 # Variables
 
 # Google Environment
-variable serviceAccount {}
-variable privateKeyId {}
-variable serviceAccountSecretName {}
+variable serviceAccount {
+  description = "machine service account with access to compute api"
+}
+variable privateKeyId {
+  description = "name of existing private key"
+}
+variable serviceAccountSecretName {
+  description = "secret name accessible by service account"
+}
 
 # NETWORK
-variable extVpc { default = "terraform-network-ext-example" }
-variable intVpc { default = "terraform-network-int-example" }
-variable mgmtVpc { default = "terraform-network-mgmt-example" }
-variable extSubnet { default = "ext-sub-example" }
-variable intSubnet { default = "int-sub-example" }
-variable mgmtSubnet { default = "mgmt-sub-example" }
-variable alias_ip_range { default = "10.0.30.100/32" }
-variable managed_route1 { default = "192.0.2.0/24" } # adjust to your environment
+variable extVpc {
+  description = "external vpc network"
+  default     = "terraform-network-ext-example"
+}
+variable intVpc {
+  description = "internal vpc network"
+  default     = "terraform-network-int-example"
+}
+variable mgmtVpc {
+  description = "device management vpc network"
+  default     = "terraform-network-mgmt-example"
+}
+variable extSubnet {
+  description = "external vpc subnet range name"
+  default     = "ext-sub-example"
+}
+variable intSubnet {
+  description = "internal vpc subnet range name"
+  default     = "int-sub-example"
+}
+variable mgmtSubnet {
+  description = "management vpc subnet range name"
+  default     = "mgmt-sub-example"
+}
+variable aliasIpRange {
+  description = "alias/secondary IP subnet range"
+  default     = "10.0.30.100/32"
+}
+variable managedRoute1 {
+  description = "managed route cidr for cloud failover extension"
+  default     = "192.0.2.0/24"
+} # adjust to your environment
 
 # BIGIP Image
-variable bigipMachineType { default = "n1-standard-8" }
+variable bigipMachineType {
+  description = "bigip gce instance size"
+  default     = "n1-standard-8"
+}
 #gcloud compute images list --project f5-7626-networks-public --filter name:payg
-variable image_name { default = "projects/f5-7626-networks-public/global/images/f5-bigip-15-1-0-4-0-0-6-payg-best-1gbps-200618231635" }
-variable customImage { default = "" }
-variable customUserData { default = "" }
+variable bigipImageName {
+  description = "default gce bigip image name"
+  default     = "projects/f5-7626-networks-public/global/images/f5-bigip-15-1-0-4-0-0-6-payg-best-1gbps-200618231635"
+}
+variable bigipCustomImageName {
+  description = "path to custom gce bigip image"
+  default     = ""
+}
+variable customUserData {
+  description = "body of custom bigip userdata"
+  default     = ""
+}
 
 # BIGIP Setup
-variable bigipUsername {}
-variable bigipSecret {}
-variable license1 { default = "" }
-variable license2 { default = "" }
-variable gceSshPublicKey {}
-variable bigipHost1Name { default = "f5vm01" }
-variable bigipHost2Name { default = "f5vm02" }
-variable dnsServer { default = "8.8.8.8" }
-variable dnsSuffix {}
-variable ntpServer { default = "0.us.pool.ntp.org" }
-variable timezone { default = "UTC" }
-variable doUrl { default = "https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm" }
-variable as3Url { default = "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm" }
-variable tsUrl { default = "https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm" }
-variable cfUrl { default = "https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm" }
-variable bigipOnboardLog { default = "/var/log/cloud/onboard.log" }
+variable bigipUsername {
+  description = "adminstrative account for bigip access name"
+}
+variable bigipSecret {
+  description = "name of google secrets manager secret where bigip credentials are stored"
+}
+variable license1 {
+  description = "body of bigip license key when using BYOL"
+  default     = ""
+}
+variable license2 {
+  description = "body of bigip license key when using BYOL"
+  default     = ""
+}
+variable gceSshPublicKey {
+  description = "body of bigip ssh public key used to access instances"
+}
+variable bigipHost1Name {
+  description = "hostname of first bigip device"
+  default     = "f5vm01"
+}
+variable bigipHost2Name {
+  description = "hostname of second bigip device"
+  default     = "f5vm02"
+}
+variable dnsServer {
+  description = "address of addtionale dns server for bigip devices"
+  default     = "8.8.8.8"
+}
+variable dnsSuffix {
+  description = "dns suffix for bigip devices often your .c.yourproject"
+}
+variable ntpServer {
+  description = "address of  bigip reachable ntp servers"
+  default     = "0.us.pool.ntp.org"
+}
+variable timezone {
+  description = "default timezome for bigip devices"
+  default     = "UTC"
+}
+variable doUrl {
+  description = "path to declarative onboarding rpm"
+  default     = "https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.14.0/f5-declarative-onboarding-1.14.0-1.noarch.rpm"
+}
+variable as3Url {
+  description = "path to application services 3 rpm"
+  default     = "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.21.0/f5-appsvcs-3.21.0-4.noarch.rpm"
+}
+variable tsUrl {
+  description = "path to telemetry streaming rpm"
+  default     = "https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.13.0/f5-telemetry-1.13.0-2.noarch.rpm"
+}
+variable cfUrl {
+  description = "path to cloud failover rpm"
+  default     = "https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.4.0/f5-cloud-failover-1.4.0-0.noarch.rpm"
+}
+variable bigipOnboardLog {
+  description = "path to bigip onboarding logs"
+  default     = "/var/log/cloud/onboard.log"
+}
 
 # BIGIQ License Manager Setup
-variable bigIqHost { default = "" }
-variable bigIqUsername { default = "" }
-variable bigIqSecret { default = "" }
-variable bigIqLicenseType { default = "" }
-variable bigIqLicensePool { default = "" }
-variable bigIqSkuKeyword1 { default = "" }
-variable bigIqSkuKeyword2 { default = "" }
-variable bigIqUnitOfMeasure { default = "" }
-variable bigIqHypervisor { default = "gce" }
+variable bigIqHost {
+  description = "ip address of bigiq license manager"
+  default     = ""
+}
+variable bigIqUsername {
+  description = "user name for bigiq license manager"
+  default     = ""
+}
+variable bigIqSecret {
+  description = "name of google secrets manager secret with bigiq password"
+  default     = ""
+}
+variable bigIqLicenseType {
+  description = "type of bigiq license when using a license manager"
+  default     = ""
+}
+variable bigIqLicensePool {
+  description = "name of bigiq license pool"
+  default     = ""
+}
+variable bigIqSkuKeyword1 {
+  description = "sku type name for bigiq license pool"
+  default     = ""
+}
+variable bigIqSkuKeyword2 {
+  description = "addtional sku type name for bigiq license pool"
+  default     = ""
+}
+variable bigIqUnitOfMeasure {
+  description = "unit of measure for bigiq license pool ( hourly|monthly|yearly)"
+  default     = ""
+}
+variable bigIqHypervisor {
+  description = "hypervisor type when sending request to license manager"
+  default     = "gce"
+}
 
 # TAGS
-variable purpose { default = "public" }
-variable environment { default = "f5env" } #ex. dev/staging/prod
-variable owner { default = "f5owner" }
-variable group { default = "f5group" }
-variable costcenter { default = "f5costcenter" }
-variable application { default = "f5app" }
-variable bigipCloudFailoverLabel { default = "mydeployment" } #Cloud Failover Tag
+variable purpose {
+  description = "tag for resources"
+  default     = "public"
+}
+variable environment {
+  description = "tag for resources ex. dev/staging/prod"
+  default     = "f5env"
+}
+variable owner {
+  description = "tag for resources"
+  default     = "f5owner"
+}
+variable group {
+  description = "tag for resources"
+  default     = "f5group"
+}
+variable costcenter {
+  description = "tag for resources"
+  default     = "f5costcenter"
+}
+variable application {
+  description = "application tag for resources"
+  default     = "f5app"
+}
+variable bigipCloudFailoverLabel {
+  description = "tag for resources managed by cloud failover extension"
+  default     = "mydeployment"
+}

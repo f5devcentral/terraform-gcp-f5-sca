@@ -116,7 +116,7 @@ locals {
     gcp_region = var.gcpRegion
     #publicvip  = "0.0.0.0"
     publicvip     = google_compute_address.vip1.address
-    privatevip    = var.alias_ip_range
+    privatevip    = var.aliasIpRange
     uuid          = uuid()
     consulAddress = "1.2.3.4"
   })
@@ -127,12 +127,12 @@ locals {
   })
   vm01_cfe_json = templatefile("${path.module}/templates/bigip/cfe.json.tpl", {
     bigipCloudFailoverLabel = var.bigipCloudFailoverLabel
-    managed_route1          = var.managed_route1
+    managedRoute1           = var.managedRoute1
     remote_selfip           = ""
   })
   vm02_cfe_json = templatefile("${path.module}/templates/bigip/cfe.json.tpl", {
     bigipCloudFailoverLabel = var.bigipCloudFailoverLabel
-    managed_route1          = var.managed_route1
+    managedRoute1           = var.managedRoute1
     remote_selfip           = google_compute_instance.f5vm01.network_interface.0.network_ip
   })
 }
@@ -152,7 +152,7 @@ resource google_compute_instance f5vm01 {
 
   boot_disk {
     initialize_params {
-      image = var.customImage != "" ? var.customImage : var.image_name
+      image = var.bigipCustomImageName != "" ? var.bigipCustomImageName : var.bigipImageName
       size  = "128"
     }
   }
@@ -183,7 +183,7 @@ resource google_compute_instance f5vm01 {
   metadata = {
     ssh-keys               = "${var.bigipUsername}:${var.gceSshPublicKey}"
     block-project-ssh-keys = true
-    startup-script         = var.customImage != "" ? var.customUserData : local.vm01_onboard
+    startup-script         = var.bigipCustomImageName != "" ? var.customUserData : local.vm01_onboard
   }
 
   service_account {
@@ -207,7 +207,7 @@ resource google_compute_instance f5vm02 {
 
   boot_disk {
     initialize_params {
-      image = var.customImage != "" ? var.customImage : var.image_name
+      image = var.bigipCustomImageName != "" ? var.bigipCustomImageName : var.bigipImageName
       size  = "128"
     }
   }
@@ -218,7 +218,7 @@ resource google_compute_instance f5vm02 {
     access_config {
     }
     alias_ip_range {
-      ip_cidr_range = var.alias_ip_range
+      ip_cidr_range = var.aliasIpRange
     }
   }
 
@@ -241,7 +241,7 @@ resource google_compute_instance f5vm02 {
   metadata = {
     ssh-keys               = "${var.bigipUsername}:${var.gceSshPublicKey}"
     block-project-ssh-keys = true
-    startup-script         = var.customImage != "" ? var.customUserData : local.vm02_onboard
+    startup-script         = var.bigipCustomImageName != "" ? var.customUserData : local.vm02_onboard
   }
 
   service_account {
