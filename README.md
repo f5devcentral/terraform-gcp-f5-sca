@@ -130,7 +130,7 @@ Outline how the user can use your project and the various features the project o
 | gcpProjectId | gcp project id | `any` | n/a | yes |
 | gcpRegion | region where gke is deployed | `any` | n/a | yes |
 | gcpZone | zone where gke is deployed | `any` | n/a | yes |
-| gkeVersion | GKE release version | `string` | `"1.16.13-gke.1"` | no |
+| gkeVersion | GKE release version | `string` | `"1.16.15-gke.1600"` | no |
 | group | tag for resources | `string` | `"f5group"` | no |
 | intSubnet | internal vpc subnet range name | `string` | `"int-sub-example"` | no |
 | intVpc | internal vpc network | `string` | `"terraform-network-int-example"` | no |
