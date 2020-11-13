@@ -79,6 +79,7 @@ Outline how the user can use your project and the various features the project o
 | Name | Version |
 |------|---------|
 | google | n/a |
+| local | n/a |
 | random | n/a |
 | template | n/a |
 

@@ -56,6 +56,7 @@ locals {
     TS_Document              = local.ts_json
     CFE_Document             = local.vm01_cfe_json
     prefix                   = var.prefix
+    podCidr                  = google_container_cluster.primary.ip_allocation_policy.0.cluster_ipv4_cidr_block
   })
   vm02_onboard = templatefile("${path.module}/templates/bigip/startup.sh.tpl", {
     bigipUsername            = var.bigipUsername
@@ -73,6 +74,7 @@ locals {
     TS_Document              = local.ts_json
     CFE_Document             = local.vm02_cfe_json
     prefix                   = var.prefix
+    podCidr                  = google_container_cluster.primary.ip_allocation_policy.0.cluster_ipv4_cidr_block
   })
   vm01_do_json = templatefile("${"${"${path.module}/templates/bigip/do"}${var.license1 != "" ? "_byol" : "${var.bigIqLicensePool != "" ? "_bigiq" : ""}"}"}${var.bigIqUnitOfMeasure != "" ? "_ela" : ""}.json.tpl", {
     regKey             = var.license1
@@ -134,6 +136,13 @@ locals {
     bigipCloudFailoverLabel = var.bigipCloudFailoverLabel
     managedRoute1           = var.managedRoute1
     remote_selfip           = google_compute_instance.f5vm01.network_interface.0.network_ip
+  })
+  vscode_f5_devices = templatefile("${path.module}/templates/bigip/.vscode-f5.json.tpl", {
+    user          = var.bigipUsername
+    device1       = google_compute_instance.f5vm01.network_interface.1.access_config.0.nat_ip
+    device2       = google_compute_instance.f5vm02.network_interface.1.access_config.0.nat_ip
+    logonProvider = "local"
+    port          = "443"
   })
 }
 # Create F5 BIG-IP VMs
@@ -259,3 +268,10 @@ resource google_compute_instance f5vm02 {
 #  content  = local.vm01_do_json
 #  filename = "${path.module}/vm01_do.json"
 #}
+
+#https://f5devcentral.github.io/vscode-f5/#/device_importing?id=importing-devices
+#/home/SomeUser/.vscode-server/extensions/devcentral.vscode-f5-v3.0.0/
+resource "local_file" "f5_plugin_devices" {
+  content  = local.vscode_f5_devices
+  filename = "${path.module}/.vscode-f5.json"
+}
