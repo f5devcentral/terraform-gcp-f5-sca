@@ -1,6 +1,8 @@
 # project specific
 admin.auto.tfvars
-
+f5-cluster-deployment.yaml
+f5-as3-configmap-juiceshop.yaml
+.vscode-f5.json
 # Ignore direnv setup
 .envrc
 .direnv

@@ -1,7 +1,7 @@
 {
   // Add the IDs of extensions you want installed when the container is created in the array below.
   "extensions": [
-      "DumpySquare.vscode-f5-fast",
+      "f5devcentral.vscode-f5",
       "hashicorp.terraform",
       "eamodio.gitlens",
       "github.vscode-pull-request-github",

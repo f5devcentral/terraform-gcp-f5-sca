@@ -213,9 +213,10 @@ tmsh+=(
 "tmsh create net route ext_rt network $${INT1NETWORK}/$${INT1MASK} gw $${INT1GATEWAY}"
 "tmsh create net route default gw $${INT1GATEWAY}"
 "tmsh create net vlan internal interfaces add { 1.2 } mtu 1460"
-"tmsh create net self self_internal address $${INT2ADDRESS}/32 vlan internal allow-service add { tcp:4353 udp:1026 }"
+"tmsh create net self self_internal address $${INT2ADDRESS}/32 vlan internal allow-service add { tcp:443 tcp:4353 udp:1026 }"
 "tmsh create net route int_gw_interface network $${INT2GATEWAY}/32 interface internal"
 "tmsh create net route int_rt network $${INT2NETWORK}/$${INT2MASK} gw $${INT2GATEWAY}"
+"tmsh create net route k8s_gw network ${podCidr}  gw $${INT2GATEWAY};"
 "tmsh modify sys global-settings remote-host add { metadata.google.internal { hostname metadata.google.internal addr 169.254.169.254 } }"
 "tmsh modify sys management-dhcp sys-mgmt-dhcp-config request-options delete { ntp-servers }"
 'tmsh save /sys config'
