@@ -39,3 +39,5 @@ fileignoreconfig:
   checksum: 7dda21e43710af0fe156b538c4de69b936308f450183d46616e1d55b2ea3fa3b
 - filename: templates/bigip/startup.sh.tpl
   checksum: b7ddd0904a5cd10cb5b79fe4a955e3c2721227fe36aeeafebb45cddf04ec7f18
+- filename: demo/kic/setup.sh
+  checksum: 4c24dee8ac11c28a5364e5aba13cb1c050a0f54c66f7b52d70f2403fe85d63a7
