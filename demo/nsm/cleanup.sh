@@ -13,4 +13,4 @@ gcloud container images delete "gcr.io/${GCP_PROJECT}/nginx-mesh-init:v${NSM_VER
 gcloud container images delete "gcr.io/${GCP_PROJECT}/nginx-mesh-metrics:v${NSM_VERSION}"
 
 cd $dir
-echo "done"
+echo "====Done===="

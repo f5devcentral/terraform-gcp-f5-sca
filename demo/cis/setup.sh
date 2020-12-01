@@ -84,3 +84,4 @@ fi
 
 #
 #kubectl get nodes -o json | jq ".items[].metadata.labels | select(.node-role.kubernetes.io/master)"
+echo "====Done===="

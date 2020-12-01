@@ -38,7 +38,19 @@ for image in $images
 do
   docker push $registry/$image
 done
+# gke
+echo "get GKE cluster info"
+# cluster name
+clusterName=$(gcloud container clusters list --filter "name:demosca*" --format json | jq -r .[].name)
+# zone
+zone=$(gcloud container clusters list --filter "name:demosca*" --format json | jq -r .[].zone)
+# cluster creds
+echo "get GKE cluster creds"
+gcloud container clusters \
+    get-credentials  $clusterName	 \
+    --zone $zone
 # deploy service mesh from registry
+echo "deploy mesh containers"
 nginx-meshctl deploy --nginx-mesh-api-image "${registry}/nginx-mesh-api:${version}" \
     --nginx-mesh-sidecar-image "${registry}/nginx-mesh-sidecar:${version}" \
     --nginx-mesh-init-image "${registry}/nginx-mesh-init:${version}" \
@@ -48,4 +60,4 @@ sleep 30
 kubectl -n nginx-mesh get pods -o wide
 
 cd $dir
-echo "done"
+echo "====Done===="
