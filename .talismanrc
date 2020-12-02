@@ -39,5 +39,15 @@ fileignoreconfig:
   checksum: 7dda21e43710af0fe156b538c4de69b936308f450183d46616e1d55b2ea3fa3b
 - filename: templates/bigip/startup.sh.tpl
   checksum: b7ddd0904a5cd10cb5b79fe4a955e3c2721227fe36aeeafebb45cddf04ec7f18
-- filename: demo/kic/setup.sh
-  checksum: 4c24dee8ac11c28a5364e5aba13cb1c050a0f54c66f7b52d70f2403fe85d63a7
+- filename: demo/cis-kic/kic/default-server-secret.yaml
+  checksum: 246e74723a466bb9c754204b187d2591a88dd8f9493a3df650d210184f91c257
+- filename: demo/cis-kic/kic/nginx-plus-ingress-src.yaml
+  checksum: 54724eafa2e7139910a4c61b4e85a98f1c56ac367168da7c2ea3217303242ef6
+- filename: demo/cis-kic/cis/f5-cluster-deployment-src.yaml
+  checksum: 5a38a3eb722bdf22fa021154e9b83a22cdf3b2e7311cc8e8123cee73985c375a
+- filename: demo/cis-kic/kic/cis-kic-ingress-src.yml
+  checksum: cfea30a53a70ce080a97f3e9c57d77ec7b096466676fc74a5750e0b67ed2ee15
+- filename: demo/cis-kic/setup.sh
+  checksum: c7a73f616015df6c436f04ed207b14dded6f9b2010d2e9eb4586f5eca7cc8c8d
+- filename: demo/cis/setup.sh
+  checksum: b5ed660b537a50a6d89b53148c296a2e8a50a7a88ab3fc55b5c8152b71f1f522

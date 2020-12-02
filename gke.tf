@@ -29,7 +29,7 @@ resource google_container_node_pool primary_preemptible_nodes {
   node_config {
     image_type   = "COS"
     preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = "n1-standard-2"
     disk_type    = "pd-standard"
     disk_size_gb = 100
     metadata = {

@@ -4,8 +4,8 @@
 echo -n "Enter your bigip username and press [ENTER]: "
 read BIGIP_ADMIN
 #BIGIP_ADMIN=$( cd ../terraform/ && terraform output adminAccountName)
-echo -n "Enter your bigip password and press [ENTER]: "
-read -s BIGIP_PASS
+secrets=$(gcloud secrets versions access latest --secret="bigip-secret")
+BIGIP_PASS=$(echo $secrets | jq -r .pass)
 #BIGIP_PASS=$( cd ../terraform/ && terraform output adminPass)
 echo ""
 echo "get big-ip info"
@@ -26,7 +26,8 @@ zone=$(gcloud container clusters list --filter "name:demosca*" --format json | j
 # cluster nodes
 # gcloud compute instances list --filter "name:demosca*"-clu
 # gcloud compute instances list --filter "name:demosca*"-clu --format json | jq .[].networkInterfaces[].accessConfigs[0].natIP
-clusterNodes=$(gcloud compute instances list --filter "name:demosca*"-clu --format json | jq -r .[].networkInterfaces[].accessConfigs[0].natIP)
+clusterNodesInt=$(gcloud compute instances list --filter "name:gke-demosca*" --format json | jq -r .[].networkInterfaces | jq -r .[0].networkIP)
+clusterNodesExt=$(gcloud compute instances list --filter "name:gke-demosca*" --format json | jq -r .[].networkInterfaces[].accessConfigs[0].natIP)
 
 # cluster creds
 echo "get GKE cluster creds"

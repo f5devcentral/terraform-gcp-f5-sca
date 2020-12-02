@@ -7,6 +7,8 @@ nginx-plus-demos*
 kubernetes-ingress*
 nginx-meshctl_linux*
 nginx-mesh-images*
+nginx-plus-ingress.yaml
+cis-kic-ingress.yml
 # Ignore direnv setup
 .envrc
 .direnv
