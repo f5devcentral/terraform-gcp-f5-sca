@@ -13,15 +13,17 @@ project=$(gcloud info --format json | jq -r .config.project)
 gcloud container clusters \
     get-credentials  $clusterName	 \
     --zone $zone
+# delete app deployments
+kubectl delete svc owasp-juiceshop
+kubectl delete deployment owasp-juiceshop
+kubectl delete configmaps f5-as3-declaration-juiceshop
+# wait for as3 to clear
+sleep 15
 # delete cis
 kubectl delete deployment k8s-bigip-ctlr-deployment -n kube-system
 kubectl delete clusterrolebinding k8s-bigip-ctlr-clusteradmin
 kubectl delete serviceaccount k8s-bigip-ctlr -n kube-system
 kubectl delete secret bigip-login -n kube-system
-# delete app deployments
-kubectl delete svc owasp-juiceshop
-kubectl delete deployment owasp-juiceshop
-kubectl delete configmaps f5-as3-declaration-juiceshop
 # delete fw rule
 #gcloud compute --project=$project firewall-rules delete cis-ingress
 

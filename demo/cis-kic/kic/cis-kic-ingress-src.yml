@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: f5nginxhybridingress.com
+  namespace: nginx-ingress
+  annotations:
+  # See the k8s-bigip-ctlr documentation for information about
+  # all Ingress Annotations
+  # https://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest/#supported-ingress-annotations
+    kubernetes.io/ingress.class: "f5"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/allow-http: "false"
+    virtual-server.f5.com/balance: "round-robin"
+    virtual-server.f5.com/ip: "-external-virtual-address-"
+    virtual-server.f5.com/partition: "gke-cluster"
+    virtual-server.f5.com/http-port: "443"
+    virtual-server.f5.com/http-port: "80"
+    virtual-server.f5.com/health: |
+      [
+        {
+          "path":     "cafe.example.com/",
+          "send":     "HTTP GET /",
+          "interval": 5,
+          "timeout":  10
+        }
+      ]
+spec:
+  tls:
+    # Provide the name of the BIG-IP SSL profile you want to use.
+    - secretName: /Common/clientssl
+  backend:
+    serviceName: nginx-ingress
+    servicePort: 80

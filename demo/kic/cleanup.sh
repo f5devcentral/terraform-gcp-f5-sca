@@ -16,4 +16,4 @@ rm demo/kic/kubernetes-ingress/nginx-repo.crt
 rm demo/kic/kubernetes-ingress/nginx-repo.key
 rm demo/kic/nginx-plus-demos/licenses/nginx-repo.crt
 rm demo/kic/nginx-plus-demos/licenses/nginx-repo.key
-echo "done"
+echo "====Done===="

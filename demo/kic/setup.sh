@@ -82,4 +82,4 @@ kubectl get pods -n nginx-ingress -o wide
 #kubectl logs -f -lapp=nginx-ingress -n nginx-ingress
 # finished
 cd $dir
-echo "done"
+echo "====Done===="
