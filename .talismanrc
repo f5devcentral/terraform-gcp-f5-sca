@@ -51,3 +51,5 @@ fileignoreconfig:
   checksum: c7a73f616015df6c436f04ed207b14dded6f9b2010d2e9eb4586f5eca7cc8c8d
 - filename: demo/cis/setup.sh
   checksum: b5ed660b537a50a6d89b53148c296a2e8a50a7a88ab3fc55b5c8152b71f1f522
+- filename: .pre-commit-config.yaml
+  checksum: ec3a5d85dfd221abdc2306b23357e1f67092ff6d7c8b8a18e04dda68b54563c5
