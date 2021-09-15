@@ -1,12 +1,13 @@
 ---
 repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.39.0
+    rev: v1.50.0
     hooks:
       - id: terraform_fmt
       - id: terraform_docs
+        args: ['--args=--sort-by=required']
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v4.0.1
     hooks:
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
@@ -14,7 +15,16 @@ repos:
       - id: end-of-file-fixer
       - id: sort-simple-yaml
       - id: trailing-whitespace
-  - repo: https://github.com/thoughtworks/talisman
-    rev: v1.9.0
+  # Talisman pre-commit hook declaration is broken; pre-commit cannot build from
+  # source. Use the talisman binary installed in container/user environment.
+  - repo: local
     hooks:
-      - id: talisman-commit
+      - id: local-talisman
+        name: talisman
+        entry: talisman --githook pre-commit
+        stages:
+          - commit
+        pass_filenames: false
+        types:
+          - text
+        language: system
