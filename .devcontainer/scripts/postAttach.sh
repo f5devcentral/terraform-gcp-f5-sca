@@ -5,4 +5,5 @@ echo "---executing postAttach---"
 # of hooks in a container-only folder and override the copied .gitconfig in post
 # attach step
 git config --global core.hookspath ~/.container/hooks
+bundle install
 echo "---postAttach done---"
