@@ -13,5 +13,6 @@
   ],
   //A command string or list of command arguments to run after the environment is created. Use && in a string to execute multiple commands.
   "postCreateCommand": "/bin/bash ./.devcontainer/scripts/tools.sh >> ~/post-create-tools.log",
-  "postAttachCommand": "/bin/sh ./.devcontainer/scripts/postAttach.sh >> ~/post-attach.log"
+  "postAttachCommand": "/bin/sh ./.devcontainer/scripts/postAttach.sh >> ~/post-attach.log",
+  "remoteUser": "vscode"
 }
